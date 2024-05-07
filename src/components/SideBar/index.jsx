@@ -14,6 +14,14 @@ class SideBar extends React.Component {
       console.log(this.state.blocNotes);
     });
   }
+
+  sendClickedBlocNote(blocNote){
+    // console.log(blocNote);
+    const {setSelectedBlocNote} = this.props
+    if (setSelectedBlocNote) {
+      setSelectedBlocNote(blocNote)
+    }
+  }
   
   render () {
     const { blocNotes } = this.state;
@@ -21,12 +29,14 @@ class SideBar extends React.Component {
     return (
       <div className="sideBarBox">
         <button>Add a note</button>
-        {blocNotes.map(blocNote => (
-          <div key={blocNote.title}>
-            <h1>{blocNote.title}</h1>
-            <p>{blocNote.text}</p>
-          </div>
-        ))}
+        <div className="blocNotesBox">
+          {blocNotes.map(blocNote => (
+            <div key={blocNote.title} className="blocNote" onClick={() => this.sendClickedBlocNote(blocNote)}>
+              <h1>{blocNote.title}</h1>
+              <p>{blocNote.text}</p>
+            </div>
+          ))}
+        </div>        
       </div>
       
     )

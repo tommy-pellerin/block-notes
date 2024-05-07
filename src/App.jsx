@@ -9,11 +9,13 @@ class App extends React.Component {
     super(props);
     this.state = {
       noteTitle: "",
-      noteText: ""
+      noteText: "",
+      selectedBlocNote:{},
     };
 
     this.setNoteTitle = this.setNoteTitle.bind(this);
     this.setNoteText = this.setNoteText.bind(this);
+    this.setSelectedBlocNote = this.setSelectedBlocNote.bind(this);
   }
 
   setNoteTitle(title) {
@@ -27,6 +29,15 @@ class App extends React.Component {
       // console.log(`App notetext: ${this.state.noteText}`); // Log the updated state
     });
   }
+
+  setSelectedBlocNote(blocNote) {
+    this.setState({ selectedBlocNote: blocNote}, () => {
+      console.log(`App selected bloc note:`);
+      console.log(this.state.selectedBlocNote);
+      this.setNoteTitle(blocNote.title)
+      this.setNoteText(blocNote.text)
+    })
+  }
   
 
   render() {
@@ -37,7 +48,7 @@ class App extends React.Component {
       <h1>Hello !</h1>
       <div className='container'>
         <section className='preview'>
-          <SideBar />
+          <SideBar setSelectedBlocNote={this.setSelectedBlocNote}/>
         </section>
         <div className='rightColumn'>
           <section className='noteDisplay'>
