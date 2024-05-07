@@ -9,20 +9,19 @@
   
 }
 .preview{
-  border: 2px solid black;
+  border: 2px solid white;
 }
 
 .rightColumn{
+  border: 2px solid white;
   display: flex;
   flex-direction: column;
 }
 .noteDisplay{
-  border: 2px solid red;
   height: 40%;
   padding: 1rem;
 }
 .markdownInput{
-  border: 2px solid blue;
   height: 60%;
   padding: 1rem;
 }
