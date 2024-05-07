@@ -22,3 +22,22 @@ class NoteDisplay extends React.Component {
 }
 
 export default NoteDisplay;
+
+// //another method => However, it wraps the entire content in a <p> tag. event if you write ## that normaly give you a <h2>
+// import React from 'react';
+// import ReactMarkdown from 'react-markdown';
+
+// class NoteDisplay extends React.Component {
+//   render() {
+//     const { noteTitle, noteText } = this.props;
+
+//     return (
+//       <div>
+//         <h2>{noteTitle}</h2>
+//         <ReactMarkdown>{noteText}</ReactMarkdown>
+//       </div>      
+//     );
+//   }
+// }
+
+// export default NoteDisplay;
