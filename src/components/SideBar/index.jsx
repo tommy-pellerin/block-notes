@@ -9,10 +9,6 @@ class SideBar extends React.Component {
   }
 
   getLocalStorage() {
-    // const notesInLocal = localStorage.getItem('blocNote');
-    // const notesInLocal = JSON.parse(localStorage.getItem('Titre'))
-    // console.log(notesInLocal);
-
     const blocNotes = Object.values(localStorage).map(JSON.parse);
     this.setState({ blocNotes }, () => {
       console.log(this.state.blocNotes);
