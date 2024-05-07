@@ -5,19 +5,35 @@ class MarkdownInput extends React.Component {
   constructor(props){
     super(props)
     this.state = { // Initialize state properties before they are set
-      textInput:"",
+      textInput: "",
       titleInput:"",
       blocNote:{},
     }
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleTextareaChange = this.handleTextareaChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    // this.updateLocalStorage = this.updateLocalStorage.bind(this);
   }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.noteText !== prevProps.noteText) {
+      this.setState({ textInput: this.props.noteText });
+    }
+    if (this.props.noteTitle !== prevProps.noteTitle) {
+      this.setState({ titleInput: this.props.noteTitle });
+    }
+  }
+
   saveInLocalStorage(){
     const notes = JSON.stringify(this.state.blocNote)
-    localStorage.setItem(this.state.blocNote.title, notes);
-    
+    localStorage.setItem(this.state.blocNote.title, notes);    
   }
+
+  // updateLocalStorage() {
+  //   const notes = JSON.stringify(this.state.blocNote);
+  //   localStorage.setItem(this.state.blocNote.title, notes);
+  // }
+
   handleTitleChange(event){
     this.setState({titleInput: event.target.value}, () => {
       //passing inputs to App
@@ -61,12 +77,12 @@ class MarkdownInput extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <div className='titleInput'>
           <label>    
-            <input type="text" placeholder="Your title here" value={this.state.titleInput} minLength="1" onChange={this.handleTitleChange} />
+            <input type="text" value={this.state.titleInput} minLength="1" onChange={this.handleTitleChange} />
           </label>
         </div>        
         <div className='textInput'>
           <label>
-            <textarea placeholder="Your text here" rows="10" value={this.state.textInput} minLength="1" onChange={this.handleTextareaChange} />
+            <textarea rows="10" value={this.state.textInput} minLength="1" onChange={this.handleTextareaChange} />
           </label>
         </div>
         

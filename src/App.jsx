@@ -55,7 +55,7 @@ class App extends React.Component {
             <NoteDisplay noteTitle={noteTitle} noteText={noteText}/>
           </section>
           <section className='markdownInput'>
-            <MarkdownInput setNoteTitle={this.setNoteTitle} setNoteText={this.setNoteText}/>
+            <MarkdownInput setNoteTitle={this.setNoteTitle} setNoteText={this.setNoteText} noteTitle={noteTitle} noteText={noteText}/>
           </section>
         </div>
         
