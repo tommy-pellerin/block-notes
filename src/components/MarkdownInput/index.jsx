@@ -16,9 +16,7 @@ class MarkdownInput extends React.Component {
   saveInLocalStorage(){
     const notes = JSON.stringify(this.state.blocNote)
     localStorage.setItem(this.state.blocNote.title, notes);
-    // const notesInLocal = localStorage.getItem('blocNote');
-    const notesInLocal = JSON.parse(localStorage.getItem('blocNote'))
-    console.log(notesInLocal);
+    
   }
   handleTitleChange(event){
     this.setState({titleInput: event.target.value}, () => {

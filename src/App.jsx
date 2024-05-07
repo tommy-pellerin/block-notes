@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css'
 import MarkdownInput from './components/MarkdownInput';
 import NoteDisplay from './components/NoteDisplay';
+import SideBar from './components/SideBar';
 
 class App extends React.Component {
   constructor(props) {
@@ -17,13 +18,13 @@ class App extends React.Component {
 
   setNoteTitle(title) {
     this.setState({ noteTitle: title }, () => {
-      console.log(`App notetitle: ${this.state.noteTitle}`); // Log the updated state
+      // console.log(`App notetitle: ${this.state.noteTitle}`); // Log the updated state
     });
   }
 
   setNoteText(text) {
     this.setState({ noteText: text }, () => {
-      console.log(`App notetext: ${this.state.noteText}`); // Log the updated state
+      // console.log(`App notetext: ${this.state.noteText}`); // Log the updated state
     });
   }
   
@@ -36,7 +37,7 @@ class App extends React.Component {
       <h1>Hello !</h1>
       <div className='container'>
         <section className='preview'>
-
+          <SideBar />
         </section>
         <div className='rightColumn'>
           <section className='noteDisplay'>

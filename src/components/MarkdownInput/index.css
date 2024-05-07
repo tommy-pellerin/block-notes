@@ -36,8 +36,9 @@ button{
   background-color: #C70625;
   padding-top: 0.8rem;
   padding-bottom: 0.8rem;
-  padding-left: 4rem;
-  padding-right: 4rem;
+  padding-left: 4.5rem;
+  padding-right: 4.5rem;
+  color: white;
 }
 button:hover{
   background-color: #c70626a7;
