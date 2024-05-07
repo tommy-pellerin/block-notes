@@ -7,6 +7,10 @@
   height: 70vh;
   text-wrap: wrap;
   
+  color:white;
+}
+h1{
+  color:red
 }
 .preview{
   border: 2px solid white;

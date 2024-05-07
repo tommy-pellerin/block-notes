@@ -14,7 +14,7 @@ class NoteDisplay extends React.Component {
 
     return (
       <div>
-        <h2>{noteTitle}</h2>
+        <h1>{noteTitle}</h1>
         <div dangerouslySetInnerHTML={this.createMarkup(content)} />
       </div>      
     );

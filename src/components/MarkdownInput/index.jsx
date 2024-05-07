@@ -15,17 +15,29 @@ class MarkdownInput extends React.Component {
   }
   saveInLocalStorage(){
     const notes = JSON.stringify(this.state.blocNote)
-    localStorage.setItem('blocNote', notes);
+    localStorage.setItem(this.state.blocNote.title, notes);
     // const notesInLocal = localStorage.getItem('blocNote');
     const notesInLocal = JSON.parse(localStorage.getItem('blocNote'))
     console.log(notesInLocal);
   }
   handleTitleChange(event){
-    this.setState({titleInput: event.target.value});
+    this.setState({titleInput: event.target.value}, () => {
+      //passing inputs to App
+      const {setNoteTitle} = this.props // Destructure at the same time
+      if (setNoteTitle) { // Check if the functions exist before calling them
+          setNoteTitle(this.state.titleInput)// Pass the title as a string
+      }
+    })    
   }
 
   handleTextareaChange(event){
-    this.setState({textInput: event.target.value});
+    this.setState({textInput: event.target.value}, () => {
+      //passing inputs to App
+      const {setNoteText} = this.props // Destructure at the same time
+      if (setNoteText) { // Check if the functions exist before calling them
+          setNoteText(this.state.textInput)// Pass the text as a string
+      }
+    });    
   }
 
   handleSubmit(event) {
@@ -37,12 +49,7 @@ class MarkdownInput extends React.Component {
       console.log(this.state.titleInput);
       console.log(this.state.textInput);
       this.setState({blocNote: {title:this.state.titleInput,text:this.state.textInput}}, () => { //setState is asynchronous, which means it doesn't immediately update the state but schedules an update. To fix this, you can pass a callback function to setState which will be executed after the state update is committed.
-      //passing inputs to App
-      const {setNoteTitle, setNoteText} = this.props // Destructure at the same time
-      if (setNoteTitle && setNoteText) { // Check if the functions exist before calling them
-          setNoteTitle(this.state.titleInput)// Pass the title as a string
-          setNoteText(this.state.textInput)// Pass the text as a string
-      }
+      
       this.saveInLocalStorage();
       })
 
