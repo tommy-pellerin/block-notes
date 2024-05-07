@@ -39,3 +39,7 @@ button{
   padding-left: 4rem;
   padding-right: 4rem;
 }
+button:hover{
+  background-color: #c70626a7;
+  cursor: pointer;
+}
