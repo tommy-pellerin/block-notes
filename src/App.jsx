@@ -1,4 +1,5 @@
 import React from 'react';
+import './App.css'
 import MarkdownInput from './components/MarkdownInput';
 import NoteDisplay from './components/NoteDisplay';
 
@@ -32,17 +33,20 @@ class App extends React.Component {
 
     return (
       <>
-      <h2>Hello !</h2>
-      <div>
+      <h1>Hello !</h1>
+      <div className='container'>
         <section className='preview'>
 
         </section>
-        <section className='noteDisplay'>
-          <NoteDisplay noteTitle={noteTitle} noteText={noteText}/>
-        </section>
-        <section className='markdownInput'>
-          <MarkdownInput setNoteTitle={this.setNoteTitle} setNoteText={this.setNoteText}/>
-        </section>
+        <div className='rightColumn'>
+          <section className='noteDisplay'>
+            <NoteDisplay noteTitle={noteTitle} noteText={noteText}/>
+          </section>
+          <section className='markdownInput'>
+            <MarkdownInput setNoteTitle={this.setNoteTitle} setNoteText={this.setNoteText}/>
+          </section>
+        </div>
+        
       </div>
       
       </>

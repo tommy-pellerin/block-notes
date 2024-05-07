@@ -1,0 +1,28 @@
+.container{
+  display: grid;
+  grid-template-columns: 3fr 9fr;
+  gap: 2px;
+  background-color: #1B1B1B;
+
+  height: 70vh;
+  text-wrap: wrap;
+  
+}
+.preview{
+  border: 2px solid black;
+}
+
+.rightColumn{
+  display: flex;
+  flex-direction: column;
+}
+.noteDisplay{
+  border: 2px solid red;
+  height: 40%;
+  padding: 1rem;
+}
+.markdownInput{
+  border: 2px solid blue;
+  height: 60%;
+  padding: 1rem;
+}

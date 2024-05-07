@@ -1,16 +1,24 @@
 import React from 'react';
-
+import './index.css'
 class MarkdownInput extends React.Component {
   
   constructor(props){
     super(props)
     this.state = { // Initialize state properties before they are set
       textInput:"",
-      titleInput:""
+      titleInput:"",
+      blocNote:{},
     }
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleTextareaChange = this.handleTextareaChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  saveInLocalStorage(){
+    const notes = JSON.stringify(this.state.blocNote)
+    localStorage.setItem('blocNote', notes);
+    // const notesInLocal = localStorage.getItem('blocNote');
+    const notesInLocal = JSON.parse(localStorage.getItem('blocNote'))
+    console.log(notesInLocal);
   }
   handleTitleChange(event){
     this.setState({titleInput: event.target.value});
@@ -28,11 +36,17 @@ class MarkdownInput extends React.Component {
       console.log("in MarkdowInput");
       console.log(this.state.titleInput);
       console.log(this.state.textInput);
+      this.setState({blocNote: {title:this.state.titleInput,text:this.state.textInput}}, () => { //setState is asynchronous, which means it doesn't immediately update the state but schedules an update. To fix this, you can pass a callback function to setState which will be executed after the state update is committed.
+      //passing inputs to App
       const {setNoteTitle, setNoteText} = this.props // Destructure at the same time
-        if (setNoteTitle && setNoteText) { // Check if the functions exist before calling them
-            setNoteTitle(this.state.titleInput)// Pass the title as a string
-            setNoteText(this.state.textInput)// Pass the text as a string
-        }
+      if (setNoteTitle && setNoteText) { // Check if the functions exist before calling them
+          setNoteTitle(this.state.titleInput)// Pass the title as a string
+          setNoteText(this.state.textInput)// Pass the text as a string
+      }
+      this.saveInLocalStorage();
+      })
+
+      
     }
   }
 
@@ -40,16 +54,14 @@ class MarkdownInput extends React.Component {
 
     return (
       <form onSubmit={this.handleSubmit}>
-        <div>
-          <label>
-            Title:
-            <input type="text" value={this.state.titleInput} onChange={this.handleTitleChange} />
+        <div className='titleInput'>
+          <label>    
+            <input type="text" placeholder="Your title here" value={this.state.titleInput} minLength="1" onChange={this.handleTitleChange} />
           </label>
         </div>        
-        <div>
+        <div className='textInput'>
           <label>
-            Notes:
-            <textarea value={this.state.textInput} onChange={this.handleTextareaChange} />
+            <textarea placeholder="Your text here" rows="10" value={this.state.textInput} minLength="1" onChange={this.handleTextareaChange} />
           </label>
         </div>
         
