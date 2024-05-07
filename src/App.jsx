@@ -1,35 +1,53 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import MarkdownInput from './components/MarkdownInput';
+import NoteDisplay from './components/NoteDisplay';
 
-function App() {
-  const [count, setCount] = useState(0)
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      noteTitle: "",
+      noteText: ""
+    };
 
-  return (
-    <>
+    this.setNoteTitle = this.setNoteTitle.bind(this);
+    this.setNoteText = this.setNoteText.bind(this);
+  }
+
+  setNoteTitle(title) {
+    this.setState({ noteTitle: title }, () => {
+      console.log(`App notetitle: ${this.state.noteTitle}`); // Log the updated state
+    });
+  }
+
+  setNoteText(text) {
+    this.setState({ noteText: text }, () => {
+      console.log(`App notetext: ${this.state.noteText}`); // Log the updated state
+    });
+  }
+  
+
+  render() {
+    const { noteTitle, noteText } = this.state; //declare const here in order to use the const instead of this.state.noteTitle each time
+
+    return (
+      <>
+      <h2>Hello !</h2>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <section className='preview'>
+
+        </section>
+        <section className='noteDisplay'>
+          <NoteDisplay noteTitle={noteTitle} noteText={noteText}/>
+        </section>
+        <section className='markdownInput'>
+          <MarkdownInput setNoteTitle={this.setNoteTitle} setNoteText={this.setNoteText}/>
+        </section>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      
+      </>
+    );
+  }
 }
 
-export default App
+export default App;
