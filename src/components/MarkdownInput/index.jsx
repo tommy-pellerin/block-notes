@@ -37,6 +37,20 @@ class MarkdownInput extends React.Component {
     window.dispatchEvent(new Event('localStorageUpdated'));
   }
 
+  handleSubmit() {
+    // event.preventDefault();    
+    // if (this.state.textInput === "" || this.state.titleInput === ""){
+    //   alert("Text can't be null")
+    // } else {
+      // console.log("in MarkdowInput");
+      // console.log(this.state.titleInput);
+      // console.log(this.state.textInput);
+      this.setState({blocNote: {id:this.state.id, title:this.state.titleInput, text:this.state.textInput}}, () => { //setState is asynchronous, which means it doesn't immediately update the state but schedules an update. To fix this, you can pass a callback function to setState which will be executed after the state update is committed.
+        this.saveInLocalStorage();
+      })      
+    // }
+  }
+
   handleTitleChange(event){
     this.setState({titleInput: event.target.value}, () => {
       //passing inputs to App
@@ -44,6 +58,7 @@ class MarkdownInput extends React.Component {
       if (setNoteTitle) { // Check if the functions exist before calling them
         setNoteTitle(this.state.titleInput)// Pass the title as a string
       }
+      this.handleSubmit()
     })    
   }
 
@@ -54,22 +69,11 @@ class MarkdownInput extends React.Component {
       if (setNoteText) { // Check if the functions exist before calling them
           setNoteText(this.state.textInput)// Pass the text as a string
       }
-    });    
+      this.handleSubmit()
+    });
   }
 
-  handleSubmit(event) {
-    event.preventDefault();    
-    if (this.state.textInput === "" || this.state.titleInput === ""){
-      alert("Text can't be null")
-    } else {
-      console.log("in MarkdowInput");
-      console.log(this.state.titleInput);
-      console.log(this.state.textInput);
-      this.setState({blocNote: {id:this.state.id, title:this.state.titleInput, text:this.state.textInput}}, () => { //setState is asynchronous, which means it doesn't immediately update the state but schedules an update. To fix this, you can pass a callback function to setState which will be executed after the state update is committed.
-        this.saveInLocalStorage();
-      })      
-    }
-  }
+  
 
   render() {
 
@@ -86,7 +90,7 @@ class MarkdownInput extends React.Component {
           </label>
         </div>
         
-        <button type="submit">Save</button>
+        {/* <button type="submit">Save</button> */}
       </form>
     );
   }
