@@ -1,11 +1,12 @@
 import React from 'react';
 import './index.css'
+import { v4 as uuidv4 } from 'uuid';
 class MarkdownInput extends React.Component {
   
   constructor(props){
     super(props)
     this.state = { // Initialize state properties before they are set
-      id:0,
+      id:uuidv4(),
       textInput: "",
       titleInput:"",
       blocNote:{},
@@ -19,13 +20,13 @@ class MarkdownInput extends React.Component {
     console.log("Selected bloc note pass to markdown:");
     console.log(this.props.selectedBlocNote);
     const { selectedBlocNote } = this.props
-    if (selectedBlocNote.id !== prevProps.selectedBlocNote.id) {
-      this.setState({ 
-        id: selectedBlocNote.id,
-        titleInput: selectedBlocNote.title,
-        textInput: selectedBlocNote.text,
-      });
-    }
+  if (selectedBlocNote && prevProps.selectedBlocNote && selectedBlocNote.id !== prevProps.selectedBlocNote.id) {
+    this.setState({ 
+      id: selectedBlocNote.id,
+      titleInput: selectedBlocNote.title,
+      textInput: selectedBlocNote.text,
+    });
+  }
   }
 
   saveInLocalStorage(){
