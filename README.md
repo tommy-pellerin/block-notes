@@ -10,4 +10,4 @@ Currently, two official plugins are available:
 # bloc-notes
 ## React-markdown ne fonctionne pas dans notre cas
 GPT propos d'utiliser cette librairie comme alternative pour les problemes de sécurité lié au dangerouslySetInnerHTML.
-J'ai essayé de l'utiliser cependant celui ci wrap tout dans une balise <p> meme si on ecrit ##text (qui est cencé nous renvoyer un "<h2>").
+J'ai essayé de l'utiliser cependant celui ci wrap tout dans une balise <p> meme si on ecrit ##text (qui est cencé nous renvoyer une balise h2).
