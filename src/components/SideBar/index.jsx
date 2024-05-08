@@ -1,17 +1,30 @@
 import React from "react";
 import './index.css';
+import { v4 as uuidv4 } from 'uuid';
 
 class SideBar extends React.Component {
-  state = { blocNotes:[]}
+  
+  constructor(props) {
+    super(props);
+    this.state = {
+      blocNotes: [],
+      blocNote: {}
+      // ...
+    };
+  
+    // Bind the this context to the method
+    this.createNewBlocNote = this.createNewBlocNote.bind(this);
+  }
 
   componentDidMount() {
     this.getLocalStorage();
   }
+  
 
   getLocalStorage() {
     const blocNotes = Object.values(localStorage).map(JSON.parse);
     this.setState({ blocNotes }, () => {
-      console.log(this.state.blocNotes);
+      // console.log(this.state.blocNotes);
     });
   }
 
@@ -22,8 +35,20 @@ class SideBar extends React.Component {
       setSelectedBlocNote(blocNote)
     }
   }
-  refresh() {
-    window.location.reload();
+  saveInLocalStorage(blocNote){
+    const note = JSON.stringify(blocNote)
+    localStorage.setItem(blocNote.id, note); // Use id as the key
+  }
+  
+  createNewBlocNote() {
+    const newBlocNote = {id: uuidv4(), title: "Default Title", text: "Default Text"};
+    
+    this.setState(prevState => ({
+      blocNotes: [...prevState.blocNotes, newBlocNote],
+      blocNote: newBlocNote
+    }), () => {
+      this.saveInLocalStorage(newBlocNote);
+    });
   }
   
   render () {
@@ -31,9 +56,9 @@ class SideBar extends React.Component {
 
     return (
       <div className="sideBarBox">
-        <button onClick={this.refresh}>Refresh the list</button>
+        <button onClick={this.createNewBlocNote}>Ajouter une note</button>
           {blocNotes.map(blocNote => (
-            <div key={blocNote.title} className="blocNote" onClick={() => this.sendClickedBlocNote(blocNote)}>
+            <div key={blocNote.id} className="blocNote" onClick={() => this.sendClickedBlocNote(blocNote)}>
               <h1>{blocNote.title}</h1>
               <p>{blocNote.text}</p>
             </div>

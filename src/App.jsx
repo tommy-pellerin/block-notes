@@ -32,8 +32,8 @@ class App extends React.Component {
 
   setSelectedBlocNote(blocNote) {
     this.setState({ selectedBlocNote: blocNote}, () => {
-      console.log(`App selected bloc note:`);
-      console.log(this.state.selectedBlocNote);
+      // console.log(`App selected bloc note:`);
+      // console.log(this.state.selectedBlocNote);
       this.setNoteTitle(blocNote.title)
       this.setNoteText(blocNote.text)
     })
@@ -41,7 +41,7 @@ class App extends React.Component {
   
 
   render() {
-    const { noteTitle, noteText } = this.state; //declare const here in order to use the const instead of this.state.noteTitle each time
+    const { noteTitle, noteText, selectedBlocNote } = this.state; //declare const here in order to use the const instead of this.state.noteTitle each time
 
     return (
       <>
@@ -55,7 +55,7 @@ class App extends React.Component {
             <NoteDisplay noteTitle={noteTitle} noteText={noteText}/>
           </section>
           <section className='markdownInput'>
-            <MarkdownInput setNoteTitle={this.setNoteTitle} setNoteText={this.setNoteText} noteTitle={noteTitle} noteText={noteText}/>
+            <MarkdownInput setNoteTitle={this.setNoteTitle} setNoteText={this.setNoteText} selectedBlocNote={selectedBlocNote} />
           </section>
         </div>
         

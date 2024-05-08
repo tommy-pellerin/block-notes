@@ -16,11 +16,14 @@ class MarkdownInput extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.noteText !== prevProps.noteText || this.props.noteTitle !== prevProps.noteTitle) {
+    console.log("Selected bloc note pass to markdown:");
+    console.log(this.props.selectedBlocNote);
+    const { selectedBlocNote } = this.props
+    if (selectedBlocNote.id !== prevProps.selectedBlocNote.id) {
       this.setState({ 
-        
-        textInput: this.props.noteText,
-        titleInput: this.props.noteTitle,
+        id: selectedBlocNote.id,
+        titleInput: selectedBlocNote.title,
+        textInput: selectedBlocNote.text,
       });
     }
   }
@@ -52,19 +55,17 @@ class MarkdownInput extends React.Component {
   }
 
   handleSubmit(event) {
-    event.preventDefault();
-    this.setState(prevState => ({ id: prevState.id + 1 }), () => { // Increment id by 1
-      if (this.state.textInput === "" || this.state.titleInput === ""){
-        alert("Text can't be null")
-      } else {
-        console.log("in MarkdowInput");
-        console.log(this.state.titleInput);
-        console.log(this.state.textInput);
-        this.setState({blocNote: {id:(this.state.id),title:this.state.titleInput,text:this.state.textInput}}, () => { //setState is asynchronous, which means it doesn't immediately update the state but schedules an update. To fix this, you can pass a callback function to setState which will be executed after the state update is committed.
-          this.saveInLocalStorage();
-        })      
-      }
-    });
+    event.preventDefault();    
+    if (this.state.textInput === "" || this.state.titleInput === ""){
+      alert("Text can't be null")
+    } else {
+      console.log("in MarkdowInput");
+      console.log(this.state.titleInput);
+      console.log(this.state.textInput);
+      this.setState({blocNote: {id:this.state.id, title:this.state.titleInput, text:this.state.textInput}}, () => { //setState is asynchronous, which means it doesn't immediately update the state but schedules an update. To fix this, you can pass a callback function to setState which will be executed after the state update is committed.
+        this.saveInLocalStorage();
+      })      
+    }
   }
 
   render() {
