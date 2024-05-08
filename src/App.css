@@ -1,26 +1,28 @@
 .container{
   display: grid;
-  grid-template-columns: 3fr 9fr;
+  grid-template-columns: 4fr 8fr;
   gap: 2px;
   background-color: #1B1B1B;
 
   height: 70vh;
-  text-wrap: wrap;
+  
   
   color:white;
 }
 h1{
   color:red
 }
-.preview{
+.leftColumn{
   border: 2px solid white;
   max-height: 100%;
+  overflow-y: auto;
 }
 
 .rightColumn{
   border: 2px solid white;
   display: flex;
   flex-direction: column;
+  max-height: 100%;
 }
 .noteDisplay{
   height: 40%;

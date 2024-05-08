@@ -1,7 +1,6 @@
 import React from "react";
-import './index.css';
 
-class SideBar extends React.Component {
+class BlocNote extends React.Component {
   state = { blocNotes:[]}
 
   componentDidMount() {
@@ -45,4 +44,4 @@ class SideBar extends React.Component {
   
 }
 
-export default SideBar
+export default BlocNote

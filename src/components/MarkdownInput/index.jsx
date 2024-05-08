@@ -5,6 +5,7 @@ class MarkdownInput extends React.Component {
   constructor(props){
     super(props)
     this.state = { // Initialize state properties before they are set
+      id:0,
       textInput: "",
       titleInput:"",
       blocNote:{},
@@ -12,27 +13,23 @@ class MarkdownInput extends React.Component {
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleTextareaChange = this.handleTextareaChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    // this.updateLocalStorage = this.updateLocalStorage.bind(this);
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.noteText !== prevProps.noteText) {
-      this.setState({ textInput: this.props.noteText });
-    }
-    if (this.props.noteTitle !== prevProps.noteTitle) {
-      this.setState({ titleInput: this.props.noteTitle });
+    if (this.props.noteText !== prevProps.noteText || this.props.noteTitle !== prevProps.noteTitle) {
+      this.setState({ 
+        
+        textInput: this.props.noteText,
+        titleInput: this.props.noteTitle,
+      });
     }
   }
 
   saveInLocalStorage(){
     const notes = JSON.stringify(this.state.blocNote)
-    localStorage.setItem(this.state.blocNote.title, notes);    
+    localStorage.setItem(this.state.id, notes); // Use id as the key
+    // localStorage.setItem(this.state.blocNote.title, notes);
   }
-
-  // updateLocalStorage() {
-  //   const notes = JSON.stringify(this.state.blocNote);
-  //   localStorage.setItem(this.state.blocNote.title, notes);
-  // }
 
   handleTitleChange(event){
     this.setState({titleInput: event.target.value}, () => {
@@ -56,19 +53,18 @@ class MarkdownInput extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    if (this.state.textInput === ""){
-      alert("Text can't be null")
-    } else {
-      console.log("in MarkdowInput");
-      console.log(this.state.titleInput);
-      console.log(this.state.textInput);
-      this.setState({blocNote: {title:this.state.titleInput,text:this.state.textInput}}, () => { //setState is asynchronous, which means it doesn't immediately update the state but schedules an update. To fix this, you can pass a callback function to setState which will be executed after the state update is committed.
-      
-      this.saveInLocalStorage();
-      })
-
-      
-    }
+    this.setState(prevState => ({ id: prevState.id + 1 }), () => { // Increment id by 1
+      if (this.state.textInput === "" || this.state.titleInput === ""){
+        alert("Text can't be null")
+      } else {
+        console.log("in MarkdowInput");
+        console.log(this.state.titleInput);
+        console.log(this.state.textInput);
+        this.setState({blocNote: {id:(this.state.id),title:this.state.titleInput,text:this.state.textInput}}, () => { //setState is asynchronous, which means it doesn't immediately update the state but schedules an update. To fix this, you can pass a callback function to setState which will be executed after the state update is committed.
+          this.saveInLocalStorage();
+        })      
+      }
+    });
   }
 
   render() {
@@ -77,12 +73,12 @@ class MarkdownInput extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <div className='titleInput'>
           <label>    
-            <input type="text" value={this.state.titleInput} minLength="1" onChange={this.handleTitleChange} />
+            <input type="text" value={this.state.titleInput} minLength="2" onChange={this.handleTitleChange} />
           </label>
         </div>        
         <div className='textInput'>
           <label>
-            <textarea rows="10" value={this.state.textInput} minLength="1" onChange={this.handleTextareaChange} />
+            <textarea rows="10" value={this.state.textInput} minLength="2" onChange={this.handleTextareaChange} />
           </label>
         </div>
         

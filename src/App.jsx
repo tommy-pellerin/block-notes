@@ -47,7 +47,7 @@ class App extends React.Component {
       <>
       <h1>Hello !</h1>
       <div className='container'>
-        <section className='preview'>
+        <section className='leftColumn'>
           <SideBar setSelectedBlocNote={this.setSelectedBlocNote}/>
         </section>
         <div className='rightColumn'>
