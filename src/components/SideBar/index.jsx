@@ -14,12 +14,18 @@ class SideBar extends React.Component {
   
     // Bind the this context to the method
     this.createNewBlocNote = this.createNewBlocNote.bind(this);
+    this.getLocalStorage = this.getLocalStorage.bind(this);
   }
 
   componentDidMount() {
     this.getLocalStorage();
+    // Listen for the custom event
+    window.addEventListener('localStorageUpdated', this.getLocalStorage);
   }
-  
+  componentWillUnmount() {
+    // Remove the event listener when the component unmounts
+    window.removeEventListener('localStorageUpdated', this.getLocalStorage);
+  }
 
   getLocalStorage() {
     const blocNotes = Object.values(localStorage).map(JSON.parse);
@@ -56,13 +62,22 @@ class SideBar extends React.Component {
 
     return (
       <div className="sideBarBox">
-        <button onClick={this.createNewBlocNote}>Ajouter une note</button>
-          {blocNotes.map(blocNote => (
-            <div key={blocNote.id} className="blocNote" onClick={() => this.sendClickedBlocNote(blocNote)}>
-              <h1>{blocNote.title}</h1>
-              <p>{blocNote.text}</p>
-            </div>
-          ))}     
+        <button onClick={this.createNewBlocNote}>Add a note</button>
+          {blocNotes.map(blocNote => {
+            let words = blocNote.text.split(' ');
+            let visibleText = words.slice(0, 15).join(' ');
+
+            if (words.length > 15) {
+              visibleText += '...';
+            }
+
+            return (
+              <div key={blocNote.id} className="blocNote" onClick={() => this.sendClickedBlocNote(blocNote)}>
+                <h1>{blocNote.title}</h1>
+                <p>{visibleText}</p>
+              </div>
+            );
+          })}     
       </div>
       
     )

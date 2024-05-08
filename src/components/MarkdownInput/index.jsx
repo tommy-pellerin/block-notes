@@ -17,22 +17,24 @@ class MarkdownInput extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log("Selected bloc note pass to markdown:");
-    console.log(this.props.selectedBlocNote);
-    const { selectedBlocNote } = this.props
-  if (selectedBlocNote && prevProps.selectedBlocNote && selectedBlocNote.id !== prevProps.selectedBlocNote.id) {
-    this.setState({ 
-      id: selectedBlocNote.id,
-      titleInput: selectedBlocNote.title,
-      textInput: selectedBlocNote.text,
-    });
-  }
+      // console.log("Selected bloc note pass to markdown:");
+      // console.log(this.props.selectedBlocNote);
+      const { selectedBlocNote } = this.props
+    if (selectedBlocNote && prevProps.selectedBlocNote && selectedBlocNote.id !== prevProps.selectedBlocNote.id) {
+      this.setState({ 
+        id: selectedBlocNote.id,
+        titleInput: selectedBlocNote.title,
+        textInput: selectedBlocNote.text,
+      });
+    }
   }
 
   saveInLocalStorage(){
     const notes = JSON.stringify(this.state.blocNote)
     localStorage.setItem(this.state.id, notes); // Use id as the key
     // localStorage.setItem(this.state.blocNote.title, notes);
+    // Dispatch a custom event
+    window.dispatchEvent(new Event('localStorageUpdated'));
   }
 
   handleTitleChange(event){
@@ -40,7 +42,7 @@ class MarkdownInput extends React.Component {
       //passing inputs to App
       const {setNoteTitle} = this.props // Destructure at the same time
       if (setNoteTitle) { // Check if the functions exist before calling them
-          setNoteTitle(this.state.titleInput)// Pass the title as a string
+        setNoteTitle(this.state.titleInput)// Pass the title as a string
       }
     })    
   }

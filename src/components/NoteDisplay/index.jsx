@@ -14,7 +14,7 @@ class NoteDisplay extends React.Component {
 
     return (
       <div>
-        <h1>{noteTitle}</h1>
+        <h1>{noteTitle || "Select a bloc note to see"}</h1>
         <div dangerouslySetInnerHTML={this.createMarkup(content)} />
       </div>      
     );
